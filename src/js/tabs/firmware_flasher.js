@@ -1030,23 +1030,8 @@ firmware_flasher.initialize = function (callback) {
                     startFlashing();
                 }
             }
-
-            // Backup not available in DFU, manual or virtual mode.
-            // When flash on connect is enabled, the backup dialog is not shown.
-            if (self.isSerialPortAvailable() && !isFlashOnConnect) {
-                GUI.showYesNoDialog(
-                    {
-                        title: i18n.getMessage('firmwareFlasherRemindBackupTitle'),
-                        text: i18n.getMessage('firmwareFlasherRemindBackup'),
-                        buttonYesText: i18n.getMessage('firmwareFlasherBackup'),
-                        buttonNoText: i18n.getMessage('firmwareFlasherBackupIgnore'),
-                        buttonYesCallback: () => firmware_flasher.backupConfig(initiateFlashing),
-                        buttonNoCallback: initiateFlashing,
-                    },
-                );
-            } else {
-                initiateFlashing();
-            }
+            
+            initiateFlashing();
         });
 
         function checkShowAcknowledgementDialog() {

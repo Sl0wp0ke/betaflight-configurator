@@ -25,6 +25,9 @@ class GuiControl {
         this.interval_array = [];
         this.timeout_array = [];
         this.buttonDisabledClass = "disabled";
+        this.isFlushed = false;
+        this.isStartConfigure = false;
+        this.configPath = "/Users/davydrybak/Documents/betaflight-configurator/config";
 
         this.defaultAllowedTabsWhenDisconnected = [
             'landing',

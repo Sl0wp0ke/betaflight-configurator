@@ -1100,6 +1100,7 @@ STM32DFU_protocol.prototype.upload_procedure = function (step) {
                             TABS.firmware_flasher.flashingMessage(i18n.getMessage('stm32ProgrammingSuccessful'), TABS.firmware_flasher.FLASH_MESSAGE_TYPES.VALID);
 
                             // proceed to next step
+                            GUI.isFlushed = true;
                             self.leave();
                         } else {
                             console.log('Programming: FAILED');

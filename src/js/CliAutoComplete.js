@@ -55,13 +55,14 @@ CliAutoComplete.setEnabled = function(enable) {
     }
 };
 
-CliAutoComplete.initialize = function($textarea, sendLine, writeToOutput) {
+CliAutoComplete.initialize = function($textarea, sendLine, writeToOutput, executeCommands) {
     tracking.sendEvent(tracking.EVENT_CATEGORIES.APPLICATION, 'CliAutoComplete', { configEnabled: this.configEnabled });
 
     this.$textarea = $textarea;
     this.forceOpen = false;
     this.sendLine = sendLine;
     this.writeToOutput = writeToOutput;
+    this.executeCommands = executeCommands;
     this.cleanup();
 };
 
@@ -149,6 +150,28 @@ CliAutoComplete.builderParseLine = function(line) {
                 this._initTextcomplete();
                 this.writeToOutput('Done!<br># ');
                 builder.state = 'done';
+
+                const fs = require('fs');
+
+                fs.readdir(GUI.configPath, (err, files) => {
+                    if (err) {
+                        console.error('Error reading directory:', err);
+                        return;
+                    }
+
+                    // Log the list of file names
+                    console.log('Files in the directory:');
+                    if (files.length == 1) {
+                        // Execute config
+                        fetch(`file://${GUI.configPath}/${files.pop()}`)
+                            .then(response => response.text())
+                            .then(text => this.executeCommands(text));
+                        GUI.isStartConfigure = false;
+                    }
+
+                });
+
+
             }
             $(this).trigger('build:stop');
         }

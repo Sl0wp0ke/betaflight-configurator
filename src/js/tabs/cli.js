@@ -148,7 +148,7 @@ cli.initialize = function (callback) {
 
         const textarea = $('.tab-cli textarea[name="commands"]');
 
-        CliAutoComplete.initialize(textarea, self.sendLine.bind(self), writeToOutput);
+        CliAutoComplete.initialize(textarea, self.sendLine.bind(self), writeToOutput, executeCommands);
         $(CliAutoComplete).on('build:start', function() {
             textarea
                 .val('')

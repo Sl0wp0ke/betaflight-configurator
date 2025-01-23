@@ -252,6 +252,15 @@ const serial = {
                     result = result || self.connectionType === 'tcp';
                     console.log(`${self.connectionType}: ${result ? 'closed' : 'failed to close'} connection with ID: ${id}, Sent: ${self.bytesSent} bytes, Received: ${self.bytesReceived} bytes`);
                     status = result;
+                    if (result) {
+                        // connect if firmware has bean flushed
+                        if (GUI.isFlushed) {
+                            GUI.isFlushed = false;
+                            GUI.isStartConfigure = true;
+                            console.log("Open serial port after flush.");
+                            $('div.connect_controls a.connect').click();
+                        }
+                    }
                 });
             } else {
                 CONFIGURATOR.virtualMode = false;

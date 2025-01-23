@@ -20,6 +20,11 @@ const setup = {
 setup.initialize = function (callback) {
     const self = this;
 
+    if (GUI.isStartConfigure) {
+        // close problems dialog
+        $('#dialogReportProblems-closebtn').click();
+    }
+
     if (GUI.active_tab != 'setup') {
         GUI.active_tab = 'setup';
     }
@@ -554,6 +559,12 @@ setup.initialize = function (callback) {
         GUI.interval_add('setup_data_pull_slow', get_slow_data, 250, true); // 4 fps
 
         GUI.content_ready(callback);
+        if (GUI.isStartConfigure) {
+            // open cli tab
+            CONFIGURATOR.connectionValid = true; // making it possible to open the CLI tab
+            GUI.allowedTabs = ['cli'];
+            $('#tabs .tab_cli a').click();
+        }
     }
 };
 
