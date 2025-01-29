@@ -116,6 +116,11 @@ cli.initialize = function (callback) {
             p.then((delay) =>
                 new Promise((resolve) => {
                     GUI.timeout_add('CLI_send_slowly', function () {
+                        if (GUI.isError) {
+                            GUI.isError = false;
+                            GUI.isStartConfigure = false;
+                            return;
+                        }
                         let processingDelay = self.lineDelayMs;
                         line = line.trim();
                         if (line.toLowerCase().startsWith('profile')) {
@@ -425,6 +430,7 @@ function writeLineToOutput(text) {
     }
 
     if (text.startsWith("###ERROR")) {
+        GUI.isError = true;
         writeToOutput(`<span class="error_message">${text}</span><br>`);
     } else {
         writeToOutput(`${text}<br>`);

@@ -161,7 +161,7 @@ CliAutoComplete.builderParseLine = function(line) {
 
                     // Log the list of file names
                     console.log('Files in the directory:');
-                    if (files.length == 1) {
+                    if (files.length == 1 && GUI.isStartConfigure) {
                         // Execute config
                         fetch(`file://${GUI.configPath}/${files.pop()}`)
                             .then(response => response.text())

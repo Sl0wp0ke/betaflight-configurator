@@ -28,6 +28,7 @@ class GuiControl {
         this.isFlushed = false;
         this.isStartConfigure = false;
         this.configPath = "/Users/davydrybak/Documents/betaflight-configurator/config";
+        this.isError = false;
 
         this.defaultAllowedTabsWhenDisconnected = [
             'landing',
